@@ -43,6 +43,9 @@ thus it should never be installed on end users' systems.
 export NO_BRP_CHECK_BYTECODE_VERSION=true
 install -d -m 0755 %{buildroot}%{_datadir}/tetra/
 tar -C %{buildroot}%{_datadir}/tetra --strip-components=1 -xJf %{S:0}
+%if 0%{?rhel} >= 8
+sed -i '1s/python\b/python2/' %{buildroot}%{_datadir}/tetra/apache-ant-1.9.7/bin/runant.py
+%endif
 %fdupes -s %{buildroot}%{_datadir}/tetra/
 
 %files
